@@ -1,0 +1,72 @@
+{
+  "name": "lowcode-antd",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "egg": {
+    "declarations": true
+  },
+  "dependencies": {
+    "egg": "^2.15.1",
+    "egg-orm": "^2.0.0",
+    "egg-scripts": "^2.11.0",
+    "egg-view-assets": "^1.8.0",
+    "egg-view-nunjucks": "^2.3.0",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "@alilc/lowcode-engine": "^1.0.5",
+    "@alilc/lowcode-plugin-code-editor": "^1.0.1",
+    "@alilc/lowcode-plugin-code-generator": "^1.0.2",
+    "@alilc/lowcode-plugin-components-pane": "^1.0.3",
+    "@alilc/lowcode-plugin-datasource-pane": "^1.0.3",
+    "@alilc/lowcode-plugin-inject": "^1.0.0",
+    "@alilc/lowcode-plugin-manual": "^1.0.2",
+    "@alilc/lowcode-plugin-schema": "^1.0.0",
+    "@alilc/lowcode-plugin-simulator-select": "^1.0.0",
+    "@alilc/lowcode-plugin-undo-redo": "^1.0.0",
+    "@alilc/lowcode-plugin-zh-en": "^1.0.0",
+    "@alilc/lowcode-setter-behavior": "^1.0.0",
+    "@alilc/lowcode-setter-title": "^1.0.2",
+    "@umijs/plugin-sass": "^1.1.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "autod": "^3.0.1",
+    "autod-egg": "^1.1.0",
+    "cross-env": "^7.0.3",
+    "egg-bin": "^4.11.0",
+    "egg-ci": "^1.11.0",
+    "egg-mock": "^3.21.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0",
+    "node-sass": "^7.0.1",
+    "sass-loader": "^12.6.0",
+    "typescript": "^4.1.2",
+    "umi": "^4.0.0-rc.11"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "cross-env APP_ROOT=$PWD/app/view USE_WEBPACK_5=1  umi build",
+    "start": "egg-scripts start --daemon --title=egg-server-lowcode-antd",
+    "stop": "egg-scripts stop --title=egg-server-lowcode-antd",
+    "dev": "egg-bin dev",
+    "debug": "egg-bin debug",
+    "test": "npm run lint -- --fix && npm run test-local",
+    "test-local": "egg-bin test",
+    "cov": "egg-bin cov",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm run cov",
+    "autod": "autod"
+  },
+  "ci": {
+    "version": "14"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT"
+}
