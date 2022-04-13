@@ -2,6 +2,86 @@ import { material, project } from '@alilc/lowcode-engine';
 import { filterPackages } from '@alilc/lowcode-plugin-inject'
 import { Message, Dialog } from '@alifd/next';
 
+import { history } from 'umi';
+
+function request(
+  dataAPI: string,
+  method = 'GET',
+  data?: object | string,
+  headers?: object,
+  otherProps?: any,
+): Promise<any> {
+  return new Promise((resolve, reject): void => {
+    if (otherProps && otherProps.timeout) {
+      setTimeout((): void => {
+        reject(new Error('timeout'));
+      }, otherProps.timeout);
+    }
+    fetch(dataAPI, {
+      method,
+      credentials: 'include',
+      headers,
+      body: data,
+      ...otherProps,
+    })
+      .then((response: Response): any => {
+        switch (response.status) {
+          case 200:
+          case 201:
+          case 202:
+            return response.json();
+          case 204:
+            if (method === 'DELETE') {
+              return {
+                success: true,
+              };
+            } else {
+              return {
+                __success: false,
+                code: response.status,
+              };
+            }
+          case 400:
+          case 401:
+          case 403:
+          case 404:
+          case 406:
+          case 410:
+          case 422:
+          case 500:
+            return response
+              .json()
+              .then((res: object): any => {
+                return {
+                  __success: false,
+                  code: response.status,
+                  data: res,
+                };
+              })
+              .catch((): object => {
+                return {
+                  __success: false,
+                  code: response.status,
+                };
+              });
+          default:
+            return null;
+        }
+      })
+      .then((json: any): void => {
+        if (json && json.__success !== false) {
+          resolve(json);
+        } else {
+          delete json.__success;
+          reject(json);
+        }
+      })
+      .catch((err: Error): void => {
+        reject(err);
+      });
+  });
+}
+
 export const loadIncrementalAssets = () => {
   material?.onChangeAssets(() => {
     Message.success('[MCBreadcrumb] 物料加载成功');
@@ -144,14 +224,32 @@ export const loadIncrementalAssets = () => {
   });
 };
 
-export const preview = () => {
-  saveSchema();
+export const preview = (id) => {
+  saveSchema(id);
   setTimeout(() => {
     window.open(`./preview.html${location.search}`);
   }, 500);
 };
 
-export const saveSchema = async () => {
+export const saveSchema = async (id:any) => {
+  const req = JSON.stringify({
+    schema: project.exportSchema(),
+    id,
+  });
+
+  const result = await request('/api/schema', 'POST', req, {
+   'content-type': 'application/json',
+  });
+
+  // TODO 进入到这个页面的时候， 肯定先会分配一个 id
+
+  console.info('===>', result);
+  if (result.success) {
+    Message.success('保存成功');
+  } else {
+    Message.success('保存服务器失败');
+  }
+  /*
   window.localStorage.setItem(
     'projectSchema',
     JSON.stringify(project.exportSchema())
@@ -161,7 +259,8 @@ export const saveSchema = async () => {
     'packages',
     JSON.stringify(packages)
   );
-  Message.success('成功保存到本地');
+
+  */
 };
 
 export const resetSchema = async () => {
@@ -206,93 +305,21 @@ export const resetSchema = async () => {
   Message.success('成功重置页面');
 }
 
-export const getPageSchema = async () => {
-  const schema = JSON.parse(
-    window.localStorage.getItem('projectSchema') || '{}'
-  );
+export const getPageSchema = async (id) => {
+  const schemaResult = await request(`/api/schema/${id}`);
+  if (!schemaResult.success) {
+    const schema = JSON.parse(
+      window.localStorage.getItem('projectSchema') || '{}'
+    );
+    const pageSchema = schema?.componentsTree?.[0];
 
-  const pageSchema = schema?.componentsTree?.[0];
-
-  if (pageSchema) {
-    return pageSchema;
+    if (pageSchema) {
+      return pageSchema;
+    }
+    return await request('./schema.json');
   }
-  return await request('./schema.json');
+  console.info('======', schemaResult.data);
+
+  return schemaResult.data?.componentsTree?.[0];
 };
 
-function request(
-  dataAPI: string,
-  method = 'GET',
-  data?: object | string,
-  headers?: object,
-  otherProps?: any,
-): Promise<any> {
-  return new Promise((resolve, reject): void => {
-    if (otherProps && otherProps.timeout) {
-      setTimeout((): void => {
-        reject(new Error('timeout'));
-      }, otherProps.timeout);
-    }
-    fetch(dataAPI, {
-      method,
-      credentials: 'include',
-      headers,
-      body: data,
-      ...otherProps,
-    })
-      .then((response: Response): any => {
-        switch (response.status) {
-          case 200:
-          case 201:
-          case 202:
-            return response.json();
-          case 204:
-            if (method === 'DELETE') {
-              return {
-                success: true,
-              };
-            } else {
-              return {
-                __success: false,
-                code: response.status,
-              };
-            }
-          case 400:
-          case 401:
-          case 403:
-          case 404:
-          case 406:
-          case 410:
-          case 422:
-          case 500:
-            return response
-              .json()
-              .then((res: object): any => {
-                return {
-                  __success: false,
-                  code: response.status,
-                  data: res,
-                };
-              })
-              .catch((): object => {
-                return {
-                  __success: false,
-                  code: response.status,
-                };
-              });
-          default:
-            return null;
-        }
-      })
-      .then((json: any): void => {
-        if (json && json.__success !== false) {
-          resolve(json);
-        } else {
-          delete json.__success;
-          reject(json);
-        }
-      })
-      .catch((err: Error): void => {
-        reject(err);
-      });
-  });
-}

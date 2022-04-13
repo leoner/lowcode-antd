@@ -13,7 +13,6 @@ import CodeGenPlugin from '@alilc/lowcode-plugin-code-generator';
 import DataSourcePanePlugin from '@alilc/lowcode-plugin-datasource-pane';
 import SchemaPlugin from '@alilc/lowcode-plugin-schema';
 // import CodeEditor from "@alilc/lowcode-plugin-code-editor";
-import ManualPlugin from "@alilc/lowcode-plugin-manual";
 import Inject, { injectAssets } from '@alilc/lowcode-plugin-inject';
 
 // 注册到引擎
@@ -29,17 +28,19 @@ import {
   resetSchema,
   preview,
 } from './universal/utils';
+
+import { history } from 'umi';
+
 import assets from './assets.json';
-import schema from './schema.json';
+import defaultSchema from './schema.json';
 
-export default async function registerPlugins() {
-  await plugins.register(ManualPlugin);
-
+export default async function registerPlugins(schemaId: number) {
   await plugins.register(Inject);
-
   // plugin API 见 https://yuque.antfin.com/ali-lowcode/docs/cdukce
   SchemaPlugin.pluginName = 'SchemaPlugin';
   await plugins.register(SchemaPlugin);
+
+  const schema = await getPageSchema(schemaId);
 
   const editorInit = (ctx: ILowCodePluginContext) => {
     return {
@@ -55,7 +56,6 @@ export default async function registerPlugins() {
         const { material, project } = ctx;
 
         material.setAssets(await injectAssets(assets));
-
         // 加载 schema
         project.openDocument(schema);
       },
@@ -184,8 +184,10 @@ export default async function registerPlugins() {
             align: 'right',
           },
           content: (
-            <Button onClick={saveSchema}>
-              保存到本地
+            <Button onClick={() => {
+              saveSchema(schemaId);
+            }}>
+              保存到服务器
             </Button>
           ),
         });
@@ -204,7 +206,7 @@ export default async function registerPlugins() {
         });
         hotkey.bind('command+s', (e) => {
           e.preventDefault();
-          saveSchema();
+          saveSchema(schemaId);
         });
       },
     };

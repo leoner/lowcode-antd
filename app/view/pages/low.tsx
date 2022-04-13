@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { init, plugins } from '@alilc/lowcode-engine';
+import { project, plugins, common, skeleton } from '@alilc/lowcode-engine'
 import { history, useSearchParams } from 'umi';
 
 import registerPlugins from './components/plugin';
@@ -21,8 +21,17 @@ preference.set('DataSourcePane', {
 
 export default () => {
   const [query, setQuery] = useSearchParams();
-  console.info('--->', query.get('id'), plugins.size);
+  const initd = useRef({
+    inited: false,
+  });
+  console.info('--->', query.get('id'));
   useEffect(() => {
+    console.info('====1111=>', initd.current?.inited);
+    if (initd?.current?.inited) return;
+    initd.current = {
+      inited: true,
+    } ;
+    console.info('=2222====>', initd.current);
     registerPlugins(query.get('id')).then(() => {
       init(document.getElementById('lce-container')!, {
         // designMode: 'live',

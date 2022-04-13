@@ -14,4 +14,13 @@ module.exports = {
     enable: true,
     package: 'egg-view-assets',
   },
+  parameters: {
+    enable: true,
+    package: 'egg-parameters',
+  },
+
+  orm: {
+    enable: true,
+    package: 'egg-orm',
+  },
 };

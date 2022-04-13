@@ -9,6 +9,7 @@
   "dependencies": {
     "egg": "^2.15.1",
     "egg-orm": "^2.0.0",
+    "egg-parameters": "^1.1.2",
     "egg-scripts": "^2.11.0",
     "egg-view-assets": "^1.8.0",
     "egg-view-nunjucks": "^2.3.0",

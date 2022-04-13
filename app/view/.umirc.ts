@@ -14,4 +14,12 @@ export default {
     "moment": "var window.moment",
     "lodash": "var window._"
   },
+  
+  proxy: {
+    '/api': {
+      'target': 'http://localhost:7001',
+      'changeOrigin': true,
+      'pathRewrite': { '^/api' : '/api' },
+    }
+  }
 };

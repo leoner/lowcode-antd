@@ -33,6 +33,23 @@ module.exports = appInfo => {
       },
       root: path.join(appInfo.baseDir, 'app/view'),
     },
+
+    orm: {
+      port: process.env.MYSQL_PORT,
+      client: 'mysql2',
+      database: 'lowcode',
+      user: 'lowcode',
+      password: 'lowcode',
+      host: '127.0.0.1',
+      baseDir: 'model',
+      logger: {
+        logQuery(sql, duration, opts) {
+          console.info('=====s=ql------', sql);
+        },            // 数据库查询
+        logQueryError(err, sql, duration, opts) {},  // 数据库查询失败
+        logMigration(name) {},                       // 迁移任务
+      },
+    },
     assets: {
       publicPath: '/public/',
       devServer: {
@@ -47,8 +64,12 @@ module.exports = appInfo => {
           PUBLIC_PATH: 'http://127.0.0.1:8000',
         },
       },
-    }
+    },
+    security: {
+      csrf: false,
+    },
   };
+
 
   return {
     ...config,
