@@ -17,7 +17,6 @@ module.exports = () => {
       // 读取静态文件目录
       return ctx.redirect('http://127.0.0.1:8000' + ctx.url);
     }
-    console.info('2==============');
     await next();
   };
 };

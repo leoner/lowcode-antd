@@ -2,6 +2,7 @@ import { material, project } from '@alilc/lowcode-engine';
 import { filterPackages } from '@alilc/lowcode-plugin-inject'
 import { Message, Dialog } from '@alifd/next';
 
+import { updateSchema } from '@/services/lowcode';
 import { history } from 'umi';
 
 function request(
@@ -232,14 +233,13 @@ export const preview = (id) => {
 };
 
 export const saveSchema = async (id:any) => {
-  const req = JSON.stringify({
+  console.info('====>', id);
+  const req = {
     schema: project.exportSchema(),
     id,
-  });
+  };
 
-  const result = await request('/api/schema', 'POST', req, {
-   'content-type': 'application/json',
-  });
+  const result = await updateSchema(req);
 
   // TODO 进入到这个页面的时候， 肯定先会分配一个 id
 
@@ -318,7 +318,6 @@ export const getPageSchema = async (id) => {
     }
     return await request('./schema.json');
   }
-  console.info('======', schemaResult.data);
 
   return schemaResult.data?.componentsTree?.[0];
 };
