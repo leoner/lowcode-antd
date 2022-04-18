@@ -228,7 +228,7 @@ export const loadIncrementalAssets = () => {
 export const preview = (id) => {
   saveSchema(id);
   setTimeout(() => {
-    window.open(`./preview.html${location.search}`);
+    window.open(`/preview/${id}`);
   }, 500);
 };
 

@@ -266,7 +266,9 @@ export default async function registerPlugins(schemaId?: number) {
             align: 'right',
           },
           content: (
-            <Button type="primary" onClick={preview}>
+            <Button type="primary" onClick={() => {
+              return preview(schemaId);
+            }}>
               预览
             </Button>
           ),
