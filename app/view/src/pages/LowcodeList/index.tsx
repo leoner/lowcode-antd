@@ -117,7 +117,7 @@ const LowcodePageList = () => {
         <Link to={`/lowcode/edit/${record.id}`}>
           页面配置
         </Link>,
-        <a key="preview" href={`/lowcode/preview/${record.id}`}>
+        <a key="preview" href={`/preview/${record.id}`}>
           页面预览
         </a>,
         renderRemoveUser('删除', record.id),

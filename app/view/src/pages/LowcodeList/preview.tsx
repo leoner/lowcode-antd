@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, { useState, useCallback, useEffect } from 'react';
-import { useParams } from 'umi';
+import { useParams, request } from 'umi';
+import { message } from 'antd';
 import { Loading } from '@alifd/next';
 import { buildComponents, assetBundle, AssetLevel, AssetLoader } from '@alilc/lowcode-utils';
 import ReactRenderer from '@alilc/lowcode-react-renderer';
@@ -70,6 +71,10 @@ export default () => {
       <ReactRenderer
         className="lowcode-plugin-sample-preview-content"
         schema={schema}
+        appHelper={{
+          request,
+          message,
+        }}
         components={components}
       />
     </div>

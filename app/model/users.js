@@ -5,6 +5,7 @@ module.exports = function(app) {
   const Users = app.model.define('Users', {
     id: { type: BIGINT, autoIncrement: true },
     name: { type: STRING },
+    avator: { type: STRING },
     password: { type: STRING }, // md5
     nickname: { type: STRING },
   });

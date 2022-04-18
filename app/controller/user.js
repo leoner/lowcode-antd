@@ -6,10 +6,12 @@ class UserController extends Controller {
   async add() {
     const { ctx } = this;
     const user = await ctx.app.model.Users.create(ctx.params);
+    console.info('user find ---->', user);
     ctx.session.user = user;
-    ctx.success({
-      name: user.name,
-    });
+    ctx.body = {
+      success: true,
+      name: ctx.params.name,
+    }
   }
 
   async login() {
@@ -26,9 +28,24 @@ class UserController extends Controller {
 
     if (user && user.password === password) {
       ctx.session.user = user;
-      ctx.success({
+      ctx.body = {
+        success: true,
+        status: 1,
         name: user.name,
-      });
+      }
+    } else {
+      ctx.body = {
+        status: 0,
+        success: true,
+      }
+    }
+  }
+
+  async getUser() {
+    ctx.body = {
+      name: 'leoner',
+      avator: 'http://',
+      email: 'leoner@gmail.com'
     }
   }
 }

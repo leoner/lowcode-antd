@@ -245,22 +245,21 @@ export const saveSchema = async (id:any) => {
 
   console.info('===>', result);
   if (result.success) {
+    window.localStorage.setItem(
+      'projectSchema',
+      JSON.stringify(project.exportSchema())
+    );
+    const packages = await filterPackages(material.getAssets().packages);
+    window.localStorage.setItem(
+      'packages',
+      JSON.stringify(packages)
+    );
+
     Message.success('保存成功');
   } else {
     Message.success('保存服务器失败');
   }
-  /*
-  window.localStorage.setItem(
-    'projectSchema',
-    JSON.stringify(project.exportSchema())
-  );
-  const packages = await filterPackages(material.getAssets().packages);
-  window.localStorage.setItem(
-    'packages',
-    JSON.stringify(packages)
-  );
 
-  */
 };
 
 export const resetSchema = async () => {
