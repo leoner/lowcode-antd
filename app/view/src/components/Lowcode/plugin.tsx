@@ -263,7 +263,7 @@ export default async function registerPlugins(schema) {
           },
           content: (
             <Button type="primary" onClick={() => {
-              return preview(schemaId);
+              return preview();
             }}>
               预览
             </Button>

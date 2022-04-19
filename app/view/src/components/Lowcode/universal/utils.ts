@@ -225,8 +225,9 @@ export const loadIncrementalAssets = () => {
   });
 };
 
-export const preview = (id) => {
+export const preview = () => {
   saveSchema();
+  const id = config.get('currentPage');
   setTimeout(() => {
     window.open(`/preview/${id}`);
   }, 500);

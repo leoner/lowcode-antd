@@ -2,11 +2,13 @@ import { request } from 'umi';
 /** 获取当前的用户 GET /api/currentUser */
 
 export async function getLowcodePageList(params, options) {
-  return request('/api/schema', {
+  const result = await request('/api/schema', {
     method: 'GET',
     params: { ...params },
     ...(options || {}),
   });
+  console.info('===getLowcodePageList===>', result);
+  return result.data || [];
 };
 
 export async function getSchema(id, options) {

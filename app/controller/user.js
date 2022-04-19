@@ -26,6 +26,7 @@ class UserController extends Controller {
       return this.add(this.params);
     }
 
+    console.info('===login===>', user.password, password);
     if (user && user.password === password) {
       ctx.session.user = user;
       ctx.body = {

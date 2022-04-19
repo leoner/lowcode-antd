@@ -14,7 +14,7 @@ const LowcodePageList = () => {
   const init = useCallback(async () => {
     // 获取默认第一个 schema
     const result = await getLowcodePageList();
-    const schema = result?.data?.[0]?.schema || {};
+    const schema = result[0]?.schema || {};
     /*
     if (result.success && result.data.length > 0) {
       // schemaId = result.data[0].id;

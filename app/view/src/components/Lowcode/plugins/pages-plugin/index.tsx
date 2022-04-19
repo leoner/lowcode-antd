@@ -26,9 +26,10 @@ export default () => {
 
   const initSchemas = useCallback(async () => {
     const result = await getLowcodePageList();
-    setSchemas(result.data);
-    const defaultSchemaObj = result.data[0];
+    setSchemas(result);
+    const defaultSchemaObj = result[0];
     config.set('currentPage', defaultSchemaObj.id);
+    console.info('=====defaultId=', defaultSchemaObj.id);
   }, []);
 
   const handleAdd = async (fields) => {
@@ -112,6 +113,17 @@ export default () => {
           label="页面名字"
           width="md"
           name="name"
+        />
+         <ProFormText
+          rules={[
+            {
+              required: true,
+              message: '必须输入路由',
+            },
+          ]}
+          label="路由"
+          width="md"
+          name="router"
         />
       </ModalForm>
     </>
