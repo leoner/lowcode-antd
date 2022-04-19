@@ -35,7 +35,6 @@ export async function addSchema(params, options) {
 }
 
 export async function updateSchema(params, options = {}) {
-  console.info('parms------', params);
   return request(`/api/schema/${params.id}`, {
     method: 'POST',
     data: {

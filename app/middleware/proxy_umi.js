@@ -7,7 +7,7 @@ module.exports = () => {
     // 检查请求的是否是 umi 的静态资源
     const url = ctx.url;
     const extName = path.extname(url);
-    console.info('====>', url);
+    // console.info('====>', url);
     if (url === '/index.css') {
       return await next();
     }

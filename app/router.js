@@ -12,7 +12,7 @@ module.exports = app => {
   router.post('/api/schema/:id', controller.schema.createOrUpdate);
   router.get('/', controller.home.index);
   router.post('/api/login', controller.user.login);
-  router.get('/api/user', controller.user.getUser);
+  router.get('/api/user/detail', controller.user.getUser);
 
   router.get('*', controller.home.index);
 };

@@ -17,11 +17,13 @@ export default [
     icon: 'crown',
     component: './LowcodeList/preview',
   },
+
   {
     path: '/preview/:schemaId',
     icon: 'crown',
     component: './LowcodeList/preview',
   },
+  /*
   {
     path: '/list',
     name: 'lowcodeList',
@@ -34,6 +36,7 @@ export default [
     icon: 'crown',
     component: './LowcodeList/edit',
   },
+  */
   {
     path: '/',
     redirect: '/welcome',

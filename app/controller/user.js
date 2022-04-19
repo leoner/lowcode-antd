@@ -42,7 +42,7 @@ class UserController extends Controller {
   }
 
   async getUser() {
-    ctx.body = {
+    this.ctx.body = {
       name: 'leoner',
       avator: 'http://',
       email: 'leoner@gmail.com'

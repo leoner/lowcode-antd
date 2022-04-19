@@ -3,7 +3,9 @@ import {
   ILowCodePluginContext,
   plugins,
   project,
+  config,
 } from '@alilc/lowcode-engine';
+
 import AliLowCodeEngineExt from '@alilc/lowcode-engine-ext';
 import { Button } from '@alifd/next';
 import UndoRedoPlugin from '@alilc/lowcode-plugin-undo-redo';
@@ -38,7 +40,7 @@ import { history } from 'umi';
 import assets from './assets.json';
 import defaultSchema from './schema.json';
 
-export default async function registerPlugins(schemaId?: number) {
+export default async function registerPlugins(schema) {
 
   await plugins.register(Inject);
   // plugin API 见 https://yuque.antfin.com/ali-lowcode/docs/cdukce
@@ -60,12 +62,6 @@ export default async function registerPlugins(schemaId?: number) {
         // 获取 schemaId, 如果没有的话， 就使用默认
         material.setAssets(await injectAssets(assets));
 
-        let schema;
-        if (!schemaId) {
-          schema = defaultSchema;
-        } else {
-          schema = await getPageSchema(schemaId);
-        }
         // 加载 schema
         project.openDocument(schema);
       },
@@ -214,7 +210,7 @@ export default async function registerPlugins(schemaId?: number) {
           },
           content: (
             <Button onClick={() => {
-              saveSchema(schemaId);
+              saveSchema();
             }}>
               保存到服务器
             </Button>

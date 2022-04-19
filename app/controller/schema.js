@@ -12,7 +12,7 @@ class SchemaController extends Controller {
     let result;
     const updateObj = {};
     if (schema) {
-      updateObj.content = JSON.stringify(schema);
+      updateObj.schema = JSON.stringify(schema);
     }
 
     if (name) {
@@ -45,7 +45,7 @@ class SchemaController extends Controller {
       const success = !!schema;
       ctx.body = {
         success,
-        data: JSON.parse(schema.content),
+        data: JSON.parse(schema.schema),
       };
       return;
     }
@@ -62,7 +62,7 @@ class SchemaController extends Controller {
     console.info('====>', id);
     const schemas = await this.ctx.model.Schemas.find();
     schemas.forEach(schema => {
-      schema.content = JSON.parse(schema.content);
+      schema.schema = JSON.parse(schema.schema);
     });
 
     ctx.body = {
