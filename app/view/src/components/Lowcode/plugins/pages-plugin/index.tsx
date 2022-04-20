@@ -54,8 +54,6 @@ export default () => {
     // 切换
     const schema = await getSchema(val.key);
 
-    console.info('find schema ', schema);
-
     project.removeDocument(project.currentDocument);
     project.openDocument(schema?.componentsTree?.[0] || getDefaultSchema());
     config.set('currentPage', val.key);

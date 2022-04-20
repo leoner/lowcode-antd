@@ -1,126 +1,62 @@
 import ReactDOM from 'react-dom';
 import React, { useState, useCallback, useEffect } from 'react';
 import { request } from 'umi';
-import { message, Menu } from 'antd';
+import { message, Layout, Menu } from 'antd';
 import { Loading } from '@alifd/next';
 import { buildComponents, assetBundle, AssetLevel, AssetLoader } from '@alilc/lowcode-utils';
 import ReactRenderer from '@alilc/lowcode-react-renderer';
 import { injectComponents } from '@alilc/lowcode-plugin-inject';
 import { getDefaultSchemaId, getSchema, getLowcodePageList } from '@/services/lowcode';
+import  Renderer from './preview/renderer';
+import './preview.less';
+
+const { Header, Content, Footer } = Layout;
 
 export default () => {
-  const [data, setData] = useState({});
+  const [schemas, setSchemas] = useState([]);
+  const [id, setId] = useState();
 
-  async function onClick(val) {
-    console.info('===onClick===>', val);
+
+  useEffect(() => {
+    async function getSchemas() {
+      const _schemas = await getLowcodePageList();
+      setSchemas(_schemas);
+      setId(_schemas[0]?.id);
+    };
+    getSchemas();
+  }, []);
+
+  async function onSelect(val) {
     const { key }  = val;
-    const schemaObj = await getSchema(key);
-    const { componentsMap, componentsTree } = schemaObj;
-    const schema = componentsTree[0];
-    const libraryMap = {};
-    const libraryAsset = [];
-
-    const packages = JSON.parse(window.localStorage.getItem('packages') || '');
-    packages.forEach(({ package: _package, library, urls, renderUrls }) => {
-      libraryMap[_package] = library;
-      if (renderUrls) {
-        libraryAsset.push(renderUrls);
-      } else if (urls) {
-        libraryAsset.push(urls);
-      }
-    });
-    const components = await injectComponents(buildComponents(libraryMap, componentsMap));
-
-    setData({
-      ...data,
-      components,
-      schema,
-    });
+    setId(key);
   };
-  async function init() {
-    // 1. 加载所有的 schema
-    const schemas = await getLowcodePageList();
-
-    // 1. 找到默认的 schema
-
-    console.info('s=====', schemas);
-    const defaultSchema = schemas[0].schema;
-
-    // 2. 加载 schema
-    console.info('=========', defaultSchema);
-
-    const packages = JSON.parse(window.localStorage.getItem('packages') || '');
-    // const projectSchema = JSON.parse(window.localStorage.getItem('projectSchema') || '');
-
-    const { componentsMap: componentsMapArray, componentsTree } = defaultSchema;
-    const componentsMap: any = {};
-    componentsMapArray.forEach((component: any) => {
-      componentsMap[component.componentName] = component;
-    });
-    const schema = componentsTree[0];
-
-    const libraryMap = {};
-    const libraryAsset = [];
-    packages.forEach(({ package: _package, library, urls, renderUrls }) => {
-      libraryMap[_package] = library;
-      if (renderUrls) {
-        libraryAsset.push(renderUrls);
-      } else if (urls) {
-        libraryAsset.push(urls);
-      }
-    });
-
-    const vendors = [assetBundle(libraryAsset, AssetLevel.Library)];
-
-    // TODO asset may cause pollution
-    const assetLoader = new AssetLoader();
-    await assetLoader.load(libraryAsset);
-    const components = await injectComponents(buildComponents(libraryMap, componentsMap));
-
-    setData({
-      schema,
-      schemas,
-      components,
-    });
-  }
-
-  const { schema, components, schemas } = data;
-
-  if (!schema || !components ||!schemas) {
-    init();
-    return <Loading fullScreen />;
-  }
-
 
 
   return (
-    <div className="lowcode-plugin-sample-preview">
-    {schemas.length > 0 && <Menu
-      style={{ width: '100%'}}
-      defaultSelectedKeys={[`${schemas[0].id}`]}
-      mode='horizontal'
-      theme='light'
-    >
-      {schemas.map((schema) => {
-        return (
-          <Menu.Item key={schema.id} onClick={onClick}>
-            {schema.name}
-          </Menu.Item>
-        );
-      })}
-      </Menu>
+    <Layout className="layout">
+      <Header>
+        <div className="logo" />
+        {schemas.length > 0 && <Menu
+          style={{ width: '100%'}}
+          defaultSelectedKeys={[`${schemas[0].id}`]}
+          mode='horizontal'
+          theme='dark'
+        >
+          {schemas.map((schema) => {
+            return (
+              <Menu.Item key={schema.id} onClick={onSelect}>
+                {schema.name}
+              </Menu.Item>
+            );
+          })}
+        </Menu>
       }
-
-      <ReactRenderer
-        className="lowcode-plugin-sample-preview-content"
-        schema={schema}
-        appHelper={{
-          request,
-          message,
-        }}
-        components={components}
-      />
-    </div>
+      </Header>
+      <Content style={{ padding: '0 50px' }}>
+        { id && <Renderer id={id}/>}
+      </Content>
+      <Footer style={{ textAlign: 'center' }}> 低代码平台 ©2022</Footer>
+    </Layout>
   );
 };
 

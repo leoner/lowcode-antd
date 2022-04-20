@@ -6,6 +6,8 @@ import {
   config,
 } from '@alilc/lowcode-engine';
 
+import { request } from 'umi';
+
 import AliLowCodeEngineExt from '@alilc/lowcode-engine-ext';
 import { Button } from '@alifd/next';
 import UndoRedoPlugin from '@alilc/lowcode-plugin-undo-redo';
@@ -29,18 +31,13 @@ import Logo from './sample-plugins/logo';
 
 import {
   loadIncrementalAssets,
-  getPageSchema,
   saveSchema,
   resetSchema,
   preview,
 } from './universal/utils';
 
-import { history } from 'umi';
-
-import assets from './assets.json';
 import defaultSchema from './schema.json';
-
-export default async function registerPlugins(schema) {
+export default async function registerPlugins(schema: any) {
 
   await plugins.register(Inject);
   // plugin API 见 https://yuque.antfin.com/ali-lowcode/docs/cdukce
@@ -59,6 +56,7 @@ export default async function registerPlugins(schema) {
         // ).json();
         // 设置物料描述
         const { material, project } = ctx;
+        const assets = await request('/public/assets.json');
         // 获取 schemaId, 如果没有的话， 就使用默认
         material.setAssets(await injectAssets(assets));
 
