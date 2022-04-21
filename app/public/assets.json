@@ -16,75 +16,60 @@
       ]
     },
     {
+      "package": "iconfont-icons",
+      "urls": "//at.alicdn.com/t/font_2369445_ukrtsovd92r.js"
+    },
+    {
+      "package": "@ant-design/icons",
+      "version": "4.7.0",
+      "urls": [
+        "//g.alicdn.com/code/npm/@ali/ant-design-icons-cdn/4.5.0/index.umd.min.js"
+      ],
+      "library": "icons"
+    },
+    {
+      "package": "antd",
+      "version": "4.19.5",
+      "urls": [
+        "//g.alicdn.com/code/lib/antd/4.19.4/antd.min.js",
+        "//g.alicdn.com/code/lib/antd/4.19.4/antd.min.css"
+      ],
+      "library": "antd"
+    },
+    {
       "title": "fusion组件库",
       "package": "@alifd/next",
-      "version": "1.24.18",
+      "version": "1.23.0",
       "urls": [
-        "https://g.alicdn.com/code/lib/alifd__next/1.24.18/next.min.css",
-        "https://g.alicdn.com/code/lib/alifd__next/1.24.18/next-with-locales.min.js"
+        "https://g.alicdn.com/code/lib/alifd__next/1.23.18/next.min.css",
+        "https://g.alicdn.com/code/lib/alifd__next/1.23.18/next-with-locales.min.js"
       ],
       "library": "Next"
     },
     {
-      "title": "NextTable",
-      "package": "NextTable",
-      "version": "1.0.1",
-      "urls": [
-        "https://g.alicdn.com/fusion-platform/pro-table/1.0.1/next-table.js",
-        "https://g.alicdn.com/fusion-platform/pro-table/1.0.1/next-table.css"
-      ],
-      "library": "NextTable"
-    },
-    {
       "package": "@alilc/lowcode-materials",
-      "version": "1.0.2",
-      "library": "AlilcLowcodeMaterials",
+      "version": "1.0.3",
+      "library": "AntdLowcode",
       "urls": [
-        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/dist/AlilcLowcodeMaterials.js",
-        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/dist/AlilcLowcodeMaterials.css"
+        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.3/build/antd-lowcode/view.js",
+        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.3/build/antd-lowcode/view.css"
       ],
       "editUrls": [
-        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/build/lowcode/view.js",
-        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/build/lowcode/view.css"
-      ]
-    },
-    {
-      "package": "@alifd/pro-layout",
-      "version": "1.0.1-beta.6",
-      "library": "AlifdProLayout",
-      "urls": [
-        "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/dist/AlifdProLayout.js",
-        "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/dist/AlifdProLayout.css"
-      ],
-      "editUrls": [
-        "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/build/lowcode/view.js",
-        "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/build/lowcode/view.css"
-      ]
-    },
-    {
-      "package": "@alifd/fusion-ui",
-      "version": "1.0.5",
-      "library": "AlifdFusionUi",
-      "urls": [
-        "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/dist/AlifdFusionUi.js",
-        "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/dist/AlifdFusionUi.css"
-      ],
-      "editUrls": [
-        "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/build/lowcode/view.js",
-        "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/build/lowcode/view.css"
+        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.3/build/antd-lowcode/view.js",
+        "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.3/build/antd-lowcode/view.css"
       ]
     },
     {
       "package": "antd-protable-component",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "library": "AntdProtableComponent",
       "urls": [
-        "https://cdn.jsdelivr.net/npm/antd-protable-component@0.1.1/build/lowcode/view.js",
-        "https://cdn.jsdelivr.net/npm/antd-protable-component@0.1.1/build/lowcode/view.css"
+        "/npm/antd-protable-component@0.1.3/build/lowcode/view.js",
+        "/npm/antd-protable-component@0.1.3/build/lowcode/view.css"
       ],
       "editUrls": [
-        "https://cdn.jsdelivr.net/npm/antd-protable-component@0.1.1/build/lowcode/view.js",
-        "https://cdn.jsdelivr.net/npm/antd-protable-component@0.1.1/build/lowcode/view.css"
+        "/npm/antd-protable-component@0.1.3/build/lowcode/view.js",
+        "/npm/antd-protable-component@0.1.3/build/lowcode/view.css"
       ]
     }
   ],
@@ -92,48 +77,23 @@
     {
       "exportName": "AlilcLowcodeMaterialsMeta",
       "npm": {
-        "package": "@alilc/lowcode-materials"
+        "package": "@alilc/lowcode-materials",
+        "version": "1.0.3"
       },
-      "url": "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/build/lowcode/meta.js",
+      "url": "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.3/build/antd-lowcode/meta.js",
       "urls": {
-        "default": "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/build/lowcode/meta.js",
-        "design": "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.2/build/lowcode/meta.design.js"
+        "default": "https://alifd.alicdn.com/npm/@alilc/lowcode-materials@1.0.3/build/antd-lowcode/meta.js"
       }
     },
     {
-      "exportName": "AlifdProLayoutMeta",
-      "npm": {
-        "package": "@alifd/pro-layout",
-        "version": "1.0.1-beta.6"
-      },
-      "url": "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/build/lowcode/meta.js",
-      "urls": {
-        "default": "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/build/lowcode/meta.js",
-        "design": "https://alifd.alicdn.com/npm/@alifd/pro-layout@1.0.1-beta.6/build/lowcode/meta.design.js"
-      }
-    },
-    {
-      "exportName": "AlifdFusionUiMeta",
-      "npm": {
-        "package": "@alifd/fusion-ui"
-      },
-      "url": "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/build/lowcode/meta.js",
-      "urls": {
-        "default": "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/build/lowcode/meta.js",
-        "design": "https://alifd.alicdn.com/npm/@alifd/fusion-ui@1.0.5/build/lowcode/meta.design.js"
-      }
-    },
-    {
-      "title": "自定义",
-      "componentName": "ProTable",
       "exportName": "AntdProtableComponentMeta",
       "npm": {
         "package": "antd-protable-component",
-        "version": "0.1.1"
+        "version": "0.1.2"
       },
-      "url": "https://cdn.jsdelivr.net/npm/antd-protable-component@0.1.1/build/lowcode/meta.js",
+      "url": "/npm/antd-protable-component@0.1.3/build/lowcode/meta.js",
       "urls": {
-        "default": "https://cdn.jsdelivr.net/npm/antd-protable-component@0.1./build/lowcode/meta.js"
+        "default": "/npm/antd-protable-component@0.1.3/build/lowcode/meta.js"
       }
     }
   ],
@@ -143,15 +103,9 @@
       "原子组件"
     ],
     "categoryList": [
-      "基础元素",
-      "布局容器类",
-      "表格类",
-      "表单详情类",
-      "帮助类",
-      "对话框类",
-      "业务类",
+      "portal",
       "通用",
-      "引导",
+      "导航",
       "信息输入",
       "信息展示",
       "信息反馈"
