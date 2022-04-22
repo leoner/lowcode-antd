@@ -17,7 +17,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1649649738641_1329';
 
   // add your middleware config here
-  config.middleware = ['proxyNpm', 'proxyUmi'];
+  config.middleware = ['proxyUmi'];
 
   // add your user config here
   const userConfig = {

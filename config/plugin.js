@@ -23,4 +23,8 @@ module.exports = {
     enable: true,
     package: 'egg-orm',
   },
+  proxyNpm: {
+    enable: true,
+    package: 'egg-proxy-npm',
+  },
 };
