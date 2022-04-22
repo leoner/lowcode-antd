@@ -1,7 +1,8 @@
-import { material, project } from '@alilc/lowcode-engine';
+import { material, project, config } from '@alilc/lowcode-engine';
 import { filterPackages } from '@alilc/lowcode-plugin-inject'
 import { Message, Dialog } from '@alifd/next';
 
+import { updateSchema } from '@/services/lowcode';
 import { history } from 'umi';
 
 function request(
@@ -224,43 +225,43 @@ export const loadIncrementalAssets = () => {
   });
 };
 
-export const preview = (id) => {
-  saveSchema(id);
+export const preview = () => {
+  saveSchema();
+  const id = config.get('currentPage');
   setTimeout(() => {
-    window.open(`./preview.html${location.search}`);
+    window.open(`/preview/${id}`);
   }, 500);
 };
 
-export const saveSchema = async (id:any) => {
-  const req = JSON.stringify({
+export const saveSchema = async () => {
+  // 需要获取当前 schema 的 id
+
+  const id = config.get('currentPage');
+
+  console.info('=saveSchema===>', id);
+  const req = {
     schema: project.exportSchema(),
     id,
-  });
+  };
 
-  const result = await request('/api/schema', 'POST', req, {
-   'content-type': 'application/json',
-  });
-
+  const result = await updateSchema(req);
   // TODO 进入到这个页面的时候， 肯定先会分配一个 id
-
-  console.info('===>', result);
   if (result.success) {
+    window.localStorage.setItem(
+      'projectSchema',
+      JSON.stringify(project.exportSchema())
+    );
+    const packages = await filterPackages(material.getAssets().packages);
+    window.localStorage.setItem(
+      'packages',
+      JSON.stringify(packages)
+    );
+
     Message.success('保存成功');
   } else {
     Message.success('保存服务器失败');
   }
-  /*
-  window.localStorage.setItem(
-    'projectSchema',
-    JSON.stringify(project.exportSchema())
-  );
-  const packages = await filterPackages(material.getAssets().packages);
-  window.localStorage.setItem(
-    'packages',
-    JSON.stringify(packages)
-  );
 
-  */
 };
 
 export const resetSchema = async () => {
@@ -318,7 +319,6 @@ export const getPageSchema = async (id) => {
     }
     return await request('./schema.json');
   }
-  console.info('======', schemaResult.data);
 
   return schemaResult.data?.componentsTree?.[0];
 };

@@ -21,7 +21,6 @@ preference.set('DataSourcePane', {
 
 export default () => {
   const [query, setQuery] = useSearchParams();
-  console.info('--->', query.get('id'), plugins.size);
   useEffect(() => {
     registerPlugins(query.get('id')).then(() => {
       init(document.getElementById('lce-container')!, {
