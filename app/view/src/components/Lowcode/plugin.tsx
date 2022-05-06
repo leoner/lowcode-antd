@@ -4,6 +4,7 @@ import {
   plugins,
   project,
   config,
+  material,
 } from '@alilc/lowcode-engine';
 
 import { request } from 'umi';
@@ -18,6 +19,7 @@ import DataSourcePanePlugin from '@alilc/lowcode-plugin-datasource-pane';
 import SchemaPlugin from '@alilc/lowcode-plugin-schema';
 import CodeEditor from "@alilc/lowcode-plugin-code-editor";
 import Inject, { injectAssets } from '@alilc/lowcode-plugin-inject';
+import BlockPlugin from '@/components/Lowcode/plugins/block-plugin';
 
 import {
   OrderedListOutlined,
@@ -36,13 +38,22 @@ import {
   preview,
 } from './universal/utils';
 
+import saveAsBlock from '@/actions/block';
+
+
 import defaultSchema from './schema.json';
 export default async function registerPlugins(schema: any) {
+
+  // 注册保存区块工作条
+  const result = material.addBuiltinComponentAction(saveAsBlock);
+  console.info('=add====', saveAsBlock, result);
 
   await plugins.register(Inject);
   // plugin API 见 https://yuque.antfin.com/ali-lowcode/docs/cdukce
   SchemaPlugin.pluginName = 'SchemaPlugin';
   await plugins.register(SchemaPlugin);
+
+  await plugins.register(BlockPlugin);
 
   const editorInit = (ctx: ILowCodePluginContext) => {
     return {

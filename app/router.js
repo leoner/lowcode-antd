@@ -14,5 +14,12 @@ module.exports = app => {
   router.post('/api/login', controller.user.login);
   router.get('/api/user/detail', controller.user.getUser);
 
+  /** lowcode block start */
+
+  router.get('/api/blocks', controller.blocks.list);
+  router.post('/api/blocks', controller.blocks.createOrUpdate);
+
+  /** lowcode block end*/
+
   router.get('*', controller.home.index);
 };
