@@ -10,7 +10,7 @@
     "egg": "^2.35.0",
     "egg-orm": "^2.0.0",
     "egg-parameters": "^1.1.2",
-    "egg-proxy-npm": "^1.0.2",
+    "egg-proxy-npm": "^1.1.1",
     "egg-scripts": "^2.16.0",
     "egg-view-assets": "^1.8.0",
     "egg-view-nunjucks": "^2.3.0",

@@ -16,9 +16,6 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1649649738641_1329';
 
-  // add your middleware config here
-  config.middleware = ['proxyUmi'];
-
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

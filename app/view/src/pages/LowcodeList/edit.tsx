@@ -23,9 +23,15 @@ const LowcodePageList = () => {
     }
     */
 
-    console.info('getSchema----', schema);
     await registerPlugins(schema.componentsTree?.[0]);
 
+    // 设置 block plugin需要的数据 api'
+    config.set('apiList', {
+      block: {
+        listBlocks: () => {},
+        createBlock: () => {}
+      },
+    });
   }, []);
   // 1. 找到当前默认的 schemaId
   useEffect(() => {
